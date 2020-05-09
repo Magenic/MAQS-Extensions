@@ -34,13 +34,6 @@
   <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
   </ItemGroup>
-  <PropertyGroup>
-    <PostBuildEvent>
-      FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(ProjectDir)\..\packages\chromedriver.exe"') do copy /Y "%25%25m" "$(TargetDir)"
-      FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(ProjectDir)\..\packages\IEDriverServer.exe"') do copy /Y "%25%25m" "$(TargetDir)"
-      FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(ProjectDir)\..\packages\geckodriver.exe"') do copy /Y "%25%25m" "$(TargetDir)"
-    </PostBuildEvent>   
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
