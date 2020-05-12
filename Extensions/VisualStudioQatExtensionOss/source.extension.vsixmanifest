@@ -33,13 +33,6 @@
         <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\QATAppiumTemplate.zip" TargetVersion="[15.0,]" />
         <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\QATCompositeTemplate.zip" TargetVersion="[15.0,]" />
         <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\QATBaseTemplate.zip" TargetVersion="[15.0,]" />
-        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATSeleniumTemplate.zip" TargetVersion="[10.0,15.0)" />
-        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATWebserviceTemplate.zip" TargetVersion="[10.0,15.0)" />
-        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATDatabaseTemplate.zip" TargetVersion="[10.0,15.0)" />
-        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATEmailTemplate.zip" TargetVersion="[10.0,15.0)" />
-        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATAppiumTemplate.zip" TargetVersion="[10.0,15.0)" />
-        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATCompositeTemplate.zip" TargetVersion="[10.0,15.0)" />
-        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test\oldQATBaseTemplate.zip" TargetVersion="[10.0,15.0)" />
         <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test Core\QATSeleniumTemplate.zip" />
         <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test Core\QATWebserviceTemplate.zip" />
         <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic Test Core\QATDatabaseTemplate.zip" />
