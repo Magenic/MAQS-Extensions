@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Appium.WebDriver" Version="4.1.1" />
+    <PackageReference Include="Appium.WebDriver" Version="4.2.1" />
     <PackageReference Include="Magenic.Maqs.Appium" version="6.0.1" />
     <PackageReference Include="Magenic.Maqs.SpecFlow" Version="6.0.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
