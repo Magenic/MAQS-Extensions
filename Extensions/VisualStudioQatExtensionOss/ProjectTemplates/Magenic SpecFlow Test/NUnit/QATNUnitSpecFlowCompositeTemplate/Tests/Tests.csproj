@@ -29,7 +29,7 @@
     <PackageReference Include="Magenic.Maqs.SpecFlow" Version="6.0.1" />
     <PackageReference Include="SpecFlow.NUnit" Version="3.4.31" />
     <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.4.31" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.1" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
     <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="5.0.1" />
     <PackageReference Include="Npgsql" Version="4.1.5" />
