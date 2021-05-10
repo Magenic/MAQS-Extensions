@@ -21,8 +21,8 @@ namespace $rootnamespace$
         public $safeitemname$(SeleniumTestObject testObject) : base(testObject)
         {
         }
-		
-		/// <summary>
+
+        /// <summary>
         /// Sample lazy element
         /// </summary>
         private LazyElement Sample
@@ -44,7 +44,7 @@ namespace $rootnamespace$
         /// </summary>
         public override bool IsPageLoaded()
         {
-			return this.WebDriver.Url.Equals(PageUrl, System.StringComparison.CurrentCultureIgnoreCase);
+            return this.WebDriver.Url.Equals(PageUrl, System.StringComparison.CurrentCultureIgnoreCase);
         }
     }
 }

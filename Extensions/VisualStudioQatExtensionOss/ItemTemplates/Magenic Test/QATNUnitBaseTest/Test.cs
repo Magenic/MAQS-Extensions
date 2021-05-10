@@ -15,8 +15,8 @@ namespace $rootnamespace$
         [Test]
         public void SampleTest()
         {
-			this.Log.LogMessage("Sample Test");
-			Assert.IsTrue(true, "true Is Not TRUE");
+            this.Log.LogMessage("Sample Test");
+            Assert.IsTrue(true, "true Is Not TRUE");
         }
     }
 }
