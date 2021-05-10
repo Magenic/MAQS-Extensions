@@ -44,9 +44,8 @@ namespace PageModel
         /// Initializes a new instance of the <see cref="AndroidLoginPageModel" /> class.
         /// </summary>
         /// <param name="testObject">The appium test object</param>
-        public AndroidLoginPageModel(AppiumTestObject testObject)
+        public AndroidLoginPageModel(AppiumTestObject testObject): base(testObject)
         {
-            this.TestObject = testObject;
         }
 
         /// <summary>

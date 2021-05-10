@@ -11,11 +11,6 @@ namespace Models
     public class HomePageModel : BaseSeleniumPageModel
     {
         /// <summary>
-        /// The page url
-        /// </summary>
-        private static string PageUrl = SeleniumConfig.GetWebSiteBase() + "Static/Training3/HomePage.html";
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="HomePageModel" /> class.
         /// </summary>
         /// <param name="testObject">The selenium test object</param>

@@ -12,10 +12,13 @@ namespace Tests
         /// <summary>
         /// Sample test
         /// </summary>
-        // [TestMethod] - Disabled because this step will fail as the template does not include access to a test email account
+        [TestMethod]
         public void SampleTest()
         {
-            Assert.IsTrue(this.EmailDriver.CanAccessEmailAccount(), "Could not access account");
+            // TODO: Update email connection configuration and add test code
+            //Assert.IsTrue(this.EmailDriver.CanAccessEmailAccount(), "Could not access account");
+
+            this.Log.LogMessage("Dummy test");
         }
     }
 }

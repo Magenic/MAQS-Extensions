@@ -15,8 +15,10 @@ namespace Tests
         [TestMethod]
         public void SampleTest()
         {
-            // TODO: Add test code
+            // TODO: Update email connection configuration and add test code
             // Assert.IsTrue(this.EmailDriver.CanAccessEmailAccount(), "Could not access account");
+
+            this.Log.LogMessage("Dummy test");
         }
     }
 }

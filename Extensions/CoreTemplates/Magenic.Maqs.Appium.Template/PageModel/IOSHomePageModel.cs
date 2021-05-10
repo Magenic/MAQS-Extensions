@@ -35,9 +35,8 @@ namespace PageModel
         /// Initializes a new instance of the <see cref="IOSHomePageModel" /> class.
         /// </summary>
         /// <param name="testObject">The appium test object</param>
-        public IOSHomePageModel(AppiumTestObject testObject)
+        public IOSHomePageModel(AppiumTestObject testObject) : base(testObject)
         {
-            this.TestObject = testObject;
         }
     }
 }

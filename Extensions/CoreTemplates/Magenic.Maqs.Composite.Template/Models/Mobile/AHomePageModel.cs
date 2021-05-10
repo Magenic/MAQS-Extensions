@@ -6,12 +6,16 @@ namespace Models.Mobile
     /// <summary>
     /// Page object for AHomePageModel
     /// </summary>
-    public abstract class AHomePageModel
+    public abstract class AHomePageModel : BaseAppiumPageModel
     {
         /// <summary>
-        /// Appium test object
+        /// Initializes a new instance of the <see cref="AHomePageModel"/> class
         /// </summary>
-        protected AppiumTestObject TestObject;
+        /// <param name="testObject">The base Appium test object</param>
+        protected AHomePageModel(AppiumTestObject testObject)
+            : base(testObject)
+        {
+        }
 
         /// <summary>
         /// The greeting message element 'By' finder
@@ -53,6 +57,15 @@ namespace Models.Mobile
         public string GetTime()
         {
             return Time.Text;
+        }
+
+        /// <summary>
+        /// Check that the page is loaded
+        /// </summary>
+        /// <returns>True if the time is displayed</returns>
+        public override bool IsPageLoaded()
+        {
+            return Time.Exists;
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using Magenic.Maqs.BaseAppiumTest;
+﻿using Magenic.Maqs.BaseAppiumTest;
 using OpenQA.Selenium;
 namespace Models.Mobile
 {
@@ -36,9 +35,8 @@ namespace Models.Mobile
         /// Initializes a new instance of the <see cref="AndroidHomePageModel" /> class.
         /// </summary>
         /// <param name="testObject">The appium test object</param>
-        public AndroidHomePageModel(AppiumTestObject testObject)
+        public AndroidHomePageModel(AppiumTestObject testObject) : base(testObject)
         {
-            this.TestObject = testObject;
         }
     }
 }

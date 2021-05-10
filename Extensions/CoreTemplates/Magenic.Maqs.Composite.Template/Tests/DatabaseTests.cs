@@ -13,11 +13,14 @@ namespace Tests
         /// <summary>
         /// Sample test
         /// </summary>
-        // [TestMethod] - Disabled because this step will fail as the template does not include access to a test database
+        [TestMethod]
         public void SampleTest()
         {
-            var table = this.DatabaseDriver.Query("SELECT * FROM information_schema.tables");
-            Assert.AreEqual(10, table.Count(), "Expected 10 tables");
+            // TODO: Update database connection configuration and add test code
+            //var table = this.DatabaseDriver.Query("SELECT * FROM information_schema.tables");
+            //Assert.AreEqual(10, table.Count(), "Expected 10 tables");
+
+            this.Log.LogMessage("Dummy test");
         }
     }
 }
