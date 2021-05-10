@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.iOS;
-using Models.Appium;
+using Models.Mobile;
 using System;
 using TechTalk.SpecFlow;
 

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net471</TargetFramework>
@@ -6,12 +6,11 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Appium.WebDriver" Version="4.3.1" />
+    <PackageReference Include="DotNetSeleniumExtras.PageObjects" Version="3.11.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="MailKit" Version="2.11.1" />
     <PackageReference Include="MimeKit" Version="2.11.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
@@ -19,7 +18,8 @@
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="90.0.4430.2400" />
     <PackageReference Include="Selenium.WebDriver.GeckoDriver.Win64" Version="0.29.1" />
     <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.150.1.2" />
-    <PackageReference Include="Selenium.WebDriver.MicrosoftDriver" Version="17.17134.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
     <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
@@ -43,12 +43,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj" />
   </ItemGroup>
-  <PropertyGroup>
-    <PostBuildEvent>FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\chromedriver.exe"') do copy /Y "%25%25m" "$(TargetDir)"
-FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\IEDriverServer.exe"') do copy /Y "%25%25m" "$(TargetDir)"
-FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\geckodriver.exe"') do copy /Y "%25%25m" "$(TargetDir)"
-FOR /F "tokens=*" %25%25m in ('dir /s /b /a "$(SolutionDir)packages\MicrosoftWebDriver.exe"') do copy /Y "%25%25m" "$(TargetDir)" </PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

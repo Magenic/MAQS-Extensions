@@ -1,13 +1,13 @@
-﻿using Magenic.Maqs.BaseEmailTest;
+using Magenic.Maqs.BaseEmailTest;
 using NUnit.Framework;
 
 namespace $safeprojectname$
 {
     /// <summary>
-    /// $safeprojectname$ test class
+    /// Tests test class
     /// </summary>
     [TestFixture]
-    public class $safeitemname$ : BaseEmailTest
+    public class EmailTestNUnit : BaseEmailTest
     {
         /// <summary>
         /// Sample test
@@ -15,8 +15,10 @@ namespace $safeprojectname$
         [Test]
         public void SampleTestNUnit()
         {
-            // TODO: Add test code
+            // TODO: Update email connection configuration and add test code
             // Assert.IsTrue(this.EmailDriver.CanAccessEmailAccount(), "Could not access account");
+
+            this.Log.LogMessage("Dummy test");
         }
     }
 }

@@ -1,13 +1,13 @@
-﻿using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.BaseTest;
 using NUnit.Framework;
 
 namespace $safeprojectname$
 {
     /// <summary>
-    /// $safeitemname$ test class with NUnit
+    /// BaseGenericTestNUnit test class with NUnit
     /// </summary>
     [TestFixture]
-    public class $safeitemname$ : BaseTest
+    public class BaseGenericTestNUnit : BaseTest
     {
         /// <summary>
         /// Sample test

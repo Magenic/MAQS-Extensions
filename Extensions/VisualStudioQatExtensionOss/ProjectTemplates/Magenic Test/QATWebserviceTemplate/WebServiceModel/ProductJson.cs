@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace $safeprojectname$
+namespace WebServiceModel
 {
     /// <summary>
     /// Definition of a product in Json
