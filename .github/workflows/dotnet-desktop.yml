@@ -74,7 +74,7 @@ jobs:
         
     - name: GetVersion
       id: ver
-      if: {{ github.event.inputs.override == '0.0.0' }}
+     # if: {{ github.event.inputs.override == '0.0.0' }}
       shell: pwsh
       run: |
             $endPoint = "https://api.github.com/repos/magenic/MAQS/releases/latest"
