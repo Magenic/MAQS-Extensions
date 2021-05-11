@@ -1,5 +1,6 @@
 ﻿using Magenic.Maqs.BaseAppiumTest;
 using OpenQA.Selenium;
+
 namespace Models.Mobile
 {
     /// <summary>
