@@ -129,7 +129,7 @@ jobs:
       with:
         name: artifacts
         path: |
-          artifact/NuGet/**/*.*
+          artifact/**/*.*
 
 
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
