@@ -91,13 +91,13 @@ jobs:
       run: nuget.exe pack .\Extensions\CoreTemplates\QATBaseTemplate.nuspec -NonInteractive -OutputDirectory "${{github.workspace}}/artifact/NuGet/" -Properties Configuration=release -Symbols -version ${{ steps.ver.outputs.BUILD_NUMBER }} -Verbosity Detailed
       shell: pwsh
       
-    - uses: actions/upload-artifact@v2
-      if: always()
-      name: "Upload artifacts"
-      with:
-        name: artifacts
-        path: |
-          artifact/NuGet/*.*
+  #  - uses: actions/upload-artifact@v2
+  #    if: always()
+  #    name: "Upload artifacts"
+  #    with:
+  #      name: artifacts
+  #      path: |
+  #        artifact/NuGet/*.*
 
     # Install the .NET Core workload
     - name: Install .NET Core
@@ -139,7 +139,7 @@ jobs:
       with:
         name: artifacts
         path: |
-          artifact/VSIX/**/*.*
+          artifact/**/*.*
 
 
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
