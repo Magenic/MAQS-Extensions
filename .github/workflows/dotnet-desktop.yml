@@ -46,6 +46,15 @@ on:
     
   pull_request:
     branches: [ master ]
+    
+  workflow_dispatch:
+    inputs:
+      override:
+        description: 'Version Number'     
+        required: true
+        default: '0.0.0'
+      tags:
+        description: 'Manual'  
 
 jobs:
 
@@ -65,6 +74,7 @@ jobs:
         
     - name: GetVersion
       id: ver
+      if: {{ github.event.inputs.override == '0.0.0' }}
       shell: pwsh
       run: |
             $endPoint = "https://api.github.com/repos/magenic/MAQS/releases/latest"
