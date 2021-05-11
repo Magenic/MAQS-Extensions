@@ -1,6 +1,5 @@
 ﻿using Magenic.Maqs.BaseAppiumTest;
-using Magenic.Maqs.BaseSeleniumTest.Extensions;
-using OpenQA.Selenium;
+
 namespace PageModel
 {
     /// <summary>
