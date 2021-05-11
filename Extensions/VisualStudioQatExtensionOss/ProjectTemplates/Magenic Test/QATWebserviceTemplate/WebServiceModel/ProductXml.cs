@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace $safeprojectname$
+namespace WebServiceModel
 {
     /// <summary>
     /// Class for product

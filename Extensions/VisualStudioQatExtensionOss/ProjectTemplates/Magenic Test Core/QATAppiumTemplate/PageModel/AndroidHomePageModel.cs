@@ -1,19 +1,18 @@
-﻿using System;
-using Magenic.Maqs.BaseAppiumTest;
+﻿using Magenic.Maqs.BaseAppiumTest;
 using OpenQA.Selenium;
-namespace $safeprojectname$
+namespace PageModel
 {
     /// <summary>
     /// Page object for AndroidHomePageModel inheriting from the AHomePageModel
     /// </summary>
     public class AndroidHomePageModel : AHomePageModel
     {
-       /// <summary>
+        /// <summary>
         /// The greeting message element 'By' finder
         /// </summary>
         protected override LazyMobileElement GreetingMessage
         {
-            get { return new LazyMobileElement(this.TestObject, By.XPath("//android.widget.TextView[@resource-id='com.magenic.appiumtesting.maqsregistrydemo:id/welcomeLabel']"), "Welcome Label"); }
+            get { return new LazyMobileElement(this.TestObject, By.Id("Welcome"), "Welcome Label"); }
         }
 
         /// <summary>
@@ -21,7 +20,7 @@ namespace $safeprojectname$
         /// </summary>
         protected override LazyMobileElement TimeDisc
         {
-            get { return new LazyMobileElement(this.TestObject, By.XPath("//android.widget.TextView[@resource-id='com.magenic.appiumtesting.maqsregistrydemo:id/timeDesc']"), "Timer Label"); }
+            get { return new LazyMobileElement(this.TestObject, By.Id("TimeDesc"), "Timer Label"); }
         }
 
         /// <summary>
@@ -29,17 +28,15 @@ namespace $safeprojectname$
         /// </summary>
         protected override LazyMobileElement Time
         {
-            get { return new LazyMobileElement(this.TestObject, By.XPath("//android.widget.TextView[@resource-id='com.magenic.appiumtesting.maqsregistrydemo:id/time']"), "Timer"); }
+            get { return new LazyMobileElement(this.TestObject, By.Id("Time"), "Timer"); }
         }
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AndroidHomePageModel" /> class.
         /// </summary>
         /// <param name="testObject">The appium test object</param>
-        public AndroidHomePageModel(AppiumTestObject testObject)
+        public AndroidHomePageModel(AppiumTestObject testObject) : base(testObject)
         {
-            this.TestObject = testObject;
         }
     }
 }

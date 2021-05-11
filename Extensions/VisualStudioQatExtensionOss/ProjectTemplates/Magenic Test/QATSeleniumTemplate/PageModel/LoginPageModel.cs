@@ -1,25 +1,26 @@
 ﻿using Magenic.Maqs.BaseSeleniumTest;
 using Magenic.Maqs.BaseSeleniumTest.Extensions;
+using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 
-namespace $safeprojectname$
+namespace PageModel
 {
     /// <summary>
-    /// Page object for the $safeitemname$ page
+    /// Page object for the Automation page
     /// </summary>
-    public class $safeitemname$ : BaseSeleniumPageModel
+    public class LoginPageModel : BaseSeleniumPageModel
     {
         /// <summary>
         /// The page url
         /// </summary>
-        private static readonly string PageUrl = SeleniumConfig.GetWebSiteBase() + "Static/Training3/loginpage.html";
+        private static string PageUrl = SeleniumConfig.GetWebSiteBase() + "Static/Training3/loginpage.html";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="$safeitemname$" /> class.
+        /// Initializes a new instance of the <see cref="LoginPageModel" /> class.
         /// </summary>
         /// <param name="testObject">The test object</param>
-        public $safeitemname$(SeleniumTestObject testObject) : base(testObject)
+        public LoginPageModel(SeleniumTestObject testObject) : base(testObject)
         {
         }
 

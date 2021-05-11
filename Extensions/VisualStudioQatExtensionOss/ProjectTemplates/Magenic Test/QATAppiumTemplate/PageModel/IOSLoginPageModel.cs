@@ -1,6 +1,6 @@
 ﻿using Magenic.Maqs.BaseAppiumTest;
 using OpenQA.Selenium;
-namespace $safeprojectname$
+namespace PageModel
 {
     /// <summary>
     /// Page object for the IOSLoginPageModel inheriting from the ALoginPageModel
@@ -43,9 +43,8 @@ namespace $safeprojectname$
         /// Initializes a new instance of the <see cref="IOSLoginPageModel" /> class.
         /// </summary>
         /// <param name="testObject">The appium test object</param>
-        public IOSLoginPageModel(AppiumTestObject testObject)
+        public IOSLoginPageModel(AppiumTestObject testObject) : base(testObject)
         {
-            this.TestObject = testObject;
         }
 
         /// <summary>

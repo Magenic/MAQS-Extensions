@@ -1,4 +1,4 @@
-﻿using Magenic.Maqs.BaseSeleniumTest;
+using Magenic.Maqs.BaseSeleniumTest;
 using NUnit.Framework;
 using PageModel;
 
@@ -8,7 +8,7 @@ namespace $safeprojectname$
     /// SeleniumTest test class with NUnit
     /// </summary>
     [TestFixture]
-    public class $safeitemname$ : BaseSeleniumTest
+    public class SeleniumTestsNUnit : BaseSeleniumTest
     {
         /// <summary>
         /// Open page test

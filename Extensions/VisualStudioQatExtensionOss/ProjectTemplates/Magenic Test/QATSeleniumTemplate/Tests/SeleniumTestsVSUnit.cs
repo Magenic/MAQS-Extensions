@@ -1,4 +1,4 @@
-﻿using Magenic.Maqs.BaseSeleniumTest;
+using Magenic.Maqs.BaseSeleniumTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PageModel;
 
@@ -8,7 +8,7 @@ namespace $safeprojectname$
     /// SeleniumTest test class with VS unit
     /// </summary>
     [TestClass]
-    public class $safeitemname$ : BaseSeleniumTest
+    public class SeleniumTestsVSUnit : BaseSeleniumTest
     {
         /// <summary>
         /// Open page test

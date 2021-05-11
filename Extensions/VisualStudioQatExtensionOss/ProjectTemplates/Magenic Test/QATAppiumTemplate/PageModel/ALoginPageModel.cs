@@ -1,17 +1,21 @@
 ﻿using Magenic.Maqs.BaseAppiumTest;
 using Magenic.Maqs.BaseSeleniumTest.Extensions;
 using OpenQA.Selenium;
-namespace $safeprojectname$
+namespace PageModel
 {
     /// <summary>
     /// Page object for the ALoginPageModel
     /// </summary>
-    public abstract class ALoginPageModel
+    public abstract class ALoginPageModel : BaseAppiumPageModel
     {
         /// <summary>
-        /// Appium test object
+        /// Initializes a new instance of the <see cref="ALoginPageModel"/> class
         /// </summary>
-        protected AppiumTestObject TestObject;
+        /// <param name="testObject">The base Appium test object</param>
+        protected ALoginPageModel(AppiumTestObject testObject)
+            : base(testObject)
+        {
+        }
 
         /// <summary>
         /// The user name input element 'By' finder
@@ -82,5 +86,14 @@ namespace $safeprojectname$
         /// </summary>
         /// <returns>The iOS or Android version of the HomePageModel</returns>
         protected abstract AHomePageModel GetHomePageModel();
+
+        /// <summary>
+        /// Check that the page is loaded
+        /// </summary>
+        /// <returns>True if the login button is displayed</returns>
+        public override bool IsPageLoaded()
+        {
+            return LoginButton.Exists;
+        }
     }
 }

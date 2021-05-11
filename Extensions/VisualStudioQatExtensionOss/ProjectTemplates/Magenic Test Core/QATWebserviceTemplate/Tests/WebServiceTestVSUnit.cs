@@ -1,4 +1,4 @@
-﻿using Magenic.Maqs.BaseWebServiceTest;
+using Magenic.Maqs.BaseWebServiceTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebServiceModel;
 
@@ -8,7 +8,7 @@ namespace $safeprojectname$
     /// Simple web service test class using VS unit
     /// </summary>
     [TestClass]
-    public class $safeitemname$ : BaseWebServiceTest
+    public class WebServiceTestVSUnit : BaseWebServiceTest
     {
         /// <summary>
         /// Get single product as XML

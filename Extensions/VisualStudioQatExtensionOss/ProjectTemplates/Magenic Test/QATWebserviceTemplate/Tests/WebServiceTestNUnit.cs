@@ -1,4 +1,4 @@
-﻿using Magenic.Maqs.BaseWebServiceTest;
+using Magenic.Maqs.BaseWebServiceTest;
 using NUnit.Framework;
 using WebServiceModel;
 
@@ -8,7 +8,7 @@ namespace $safeprojectname$
     /// Simple web service test class using NUnit
     /// </summary>
     [TestFixture]
-    public class $safeitemname$ : BaseWebServiceTest
+    public class WebServiceTestNUnit : BaseWebServiceTest
     {
         /// <summary>
         /// Get single product as XML

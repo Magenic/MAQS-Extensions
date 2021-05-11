@@ -28,7 +28,7 @@
         <ProjectItem ReplaceParameters="true" TargetFileName="ProductJson.cs">ProductJson.cs</ProjectItem>
         <ProjectItem ReplaceParameters="true" TargetFileName="ProductXml.cs">ProductXml.cs</ProjectItem>
       </Folder>
-	  <Folder Name="Appium" TargetFolderName="Appium">
+	  <Folder Name="Mobile" TargetFolderName="Mobile">
         <ProjectItem ReplaceParameters="true" TargetFileName="IOSHomePageModel.cs">IOSHomePageModel.cs</ProjectItem>
         <ProjectItem ReplaceParameters="true" TargetFileName="IOSLoginPageModel.cs">IOSLoginPageModel.cs</ProjectItem>
         <ProjectItem ReplaceParameters="true" TargetFileName="AHomePageModel.cs">AHomePageModel.cs</ProjectItem>

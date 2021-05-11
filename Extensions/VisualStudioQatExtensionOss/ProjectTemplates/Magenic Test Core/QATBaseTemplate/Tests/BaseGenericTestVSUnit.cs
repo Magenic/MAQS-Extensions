@@ -1,13 +1,13 @@
-﻿using Magenic.Maqs.BaseTest;
+using Magenic.Maqs.BaseTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace $safeprojectname$
 {
     /// <summary>
-    /// $safeitemname$ test class with VS unit
+    /// BaseGenericTestVSUnit test class with VS unit
     /// </summary>
     [TestClass]
-    public class $safeitemname$ : BaseTest
+    public class BaseGenericTestVSUnit : BaseTest
     {
         /// <summary>
         /// Sample test

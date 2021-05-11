@@ -8,48 +8,48 @@ namespace $rootnamespace$
     /// <summary>
     /// Page object for $safeitemname$
     /// </summary>
-    public class $safeitemname$
+    public class $safeitemname$ : BaseAppiumPageModel
     {
         /// <summary>
         /// The user name input element 'By' finder
         /// </summary>
-        private static By userNameLabel = By.XPath("//*/UIAStaticText[@value='loginUsername']");
+        protected override LazyMobileElement UserNameInput
+        {
+            get { return new LazyMobileElement(this.TestObject, By.Id("UserName"), "User Name Field"); }
+        }
 
         /// <summary>
         /// The password input element 'By' finder
         /// </summary>
-        private static By passwordLabel = By.XPath("//*/UIAStaticText[@value='loginPassword']");
+        protected override LazyMobileElement PasswordInput
+        {
+            get { return new LazyMobileElement(this.TestObject, By.Id("Password"), "Password Field"); }
+        }
 
         /// <summary>
-        /// Appium test object
+        /// The login button element 'By' finder
         /// </summary>
-        private AppiumTestObject testObject;
+        protected override LazyMobileElement LoginButton
+        {
+            get { return new LazyMobileElement(this.TestObject, By.Id("Login"), "Login Button"); }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="$safeitemname$" /> class.
         /// </summary>
         /// <param name="testObject">The Appium test object</param>
         public $safeitemname$(AppiumTestObject testObject)
+            : base(testObject)
         {
-            this.testObject = testObject;
-        }
-
-		/// <summary>
-        /// Get username text from label
-        /// </summary>
-        /// <returns>username text string</returns>
-        public string GetLoggedInUsername()
-        {
-            return this.testObject.AppiumDriver.Wait().ForVisibleElement(userNameLabel).Text;
         }
 
         /// <summary>
-        /// Get password text from label
+        /// Check that the page is loaded
         /// </summary>
-        /// /// <returns>password text string</returns>
-        public string GetLoggedInPassword()
+        /// <returns>True if the time is displayed</returns>
+        public override bool IsPageLoaded()
         {
-            return this.testObject.AppiumDriver.Wait().ForVisibleElement(passwordLabel).Text;
+            return LoginButton.Exists;
         }
     }
 }
