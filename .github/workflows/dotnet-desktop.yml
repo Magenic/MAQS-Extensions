@@ -69,7 +69,7 @@ jobs:
       run: |
             $endPoint = "https://api.github.com/repos/magenic/MAQS/releases/latest"
             $info = Invoke-RestMethod -Uri $endPoint
-            $version = $info.name[0].Trim("v")
+            $version = $info.name.Trim("v")
             $version = "::set-output name=BUILD_NUMBER::$($version)"
             echo $version
 
