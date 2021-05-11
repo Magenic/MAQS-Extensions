@@ -22,11 +22,11 @@
     <Project TargetFileName="Tests.csproj" File="Tests.csproj" ReplaceParameters="true">
       <ProjectItem ReplaceParameters="true" TargetFileName="appsettings.json">appsettings.json</ProjectItem>
       <ProjectItem ReplaceParameters="true" TargetFileName="AppiumTests.cs">AppiumTests.cs</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="BasicNUnitTests.cs">BasicNUnitTest.cs</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="DatabaseTests.cs">Database.cs</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="EmailTests.cs">Email.cs</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="SeleniumTests.cs">SeleniumTest.cs</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="WebServiceTests.cs">WebService.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="BasicNUnitTests.cs">BasicNUnitTests.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="DatabaseTests.cs">DatabaseTests.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="EmailTests.cs">EmailTests.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="SeleniumTests.cs">SeleniumTests.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="WebServiceTests.cs">WebServiceTests.cs</ProjectItem>
     </Project>
   </TemplateContent>
 </VSTemplate>
