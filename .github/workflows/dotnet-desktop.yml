@@ -81,7 +81,9 @@ jobs:
             $FullPath =  [System.IO.Path]::GetFullPath($_)
             Write-Host $FullPath
             [xml]$content = Get-Content $FullPath
+            $content.PackageManifest.Metadata.Identity.Version
             $content.PackageManifest.Metadata.Identity.Version = "${{ steps.ver.outputs.BUILD_NUMBER }}"
+            $content.PackageManifest.Metadata.Identity.Version
             $content.Save($FullPath)
             }
  
@@ -129,7 +131,8 @@ jobs:
       with:
         name: artifacts
         path: |
-          artifact/**/*.*
+          artifact/NuGet/**/*.*
+          artifact/VSIX/**/*.*
 
 
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
