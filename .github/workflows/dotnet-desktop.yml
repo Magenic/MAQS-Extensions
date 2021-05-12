@@ -25,8 +25,12 @@ jobs:
     runs-on: ubuntu-latest 
     outputs:
       buildNumber: ${{ steps.ver.outputs.BUILD_NUMBER }}
+      output1: ${{ steps.step1.outputs.test }}
     
     steps:
+    - id: step1
+      run: echo "::set-output name=test::hello"
+      
     - name: GetVersion
       id: ver
       shell: pwsh
@@ -43,7 +47,7 @@ jobs:
             }
             
             $version = "::set-output name=BUILD_NUMBER::$($version)"
-            echo $version
+            Write-Host $version
 
   build:
     name: Build Templates
@@ -53,8 +57,11 @@ jobs:
       Solution_Name: Extensions\OpenSourceExtension.sln
 
     steps:
-    - name: Run zip
+    - name: Echo
       run: Write-Host ${{needs.getVersion.outputs.buildNumber}}
+      shell: pwsh
+    - name: Echo
+      run: Write-Host ${{needs.getVersion.outputs.output1}}
       shell: pwsh
     - name: Checkout
       uses: actions/checkout@v2
