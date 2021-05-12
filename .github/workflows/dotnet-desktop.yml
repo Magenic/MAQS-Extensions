@@ -21,6 +21,7 @@ on:
 jobs:
 
   getVersion:
+    name: Get package version
     runs-on: ubuntu-latest 
     outputs:
       buildNumber: ${{ steps.ver.outputs.BUILD_NUMBER }}
@@ -45,19 +46,23 @@ jobs:
             echo $version
 
   build:
+    name: Build Templates
     runs-on: windows-latest 
     needs: getVersion
     env:
       Solution_Name: Extensions\OpenSourceExtension.sln
 
     steps:
+    - name: Run zip
+      run: Write-Host ${{needs.getVersion.outputs.buildNumber}}
+      shell: pwsh
     - name: Checkout
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
  
     - name: CreateNuGetTemplate
-      run: nuget.exe pack .\Extensions\CoreTemplates\QATBaseTemplate.nuspec -NonInteractive -OutputDirectory "${{github.workspace}}/artifact/NuGet/" -Properties Configuration=release -Symbols -version ${{ needs.getVersion.outputs.buildNumber }} -Verbosity Detailed
+      run: nuget.exe pack .\Extensions\CoreTemplates\QATBaseTemplate.nuspec -NonInteractive -OutputDirectory "${{github.workspace}}/artifact/NuGet/" -Properties Configuration=release -Symbols -version ${{needs.getVersion.outputs.buildNumber}} -Verbosity Detailed
       shell: pwsh
       
     - uses: actions/upload-artifact@v2
