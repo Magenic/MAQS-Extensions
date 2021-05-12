@@ -46,7 +46,7 @@ jobs:
               $version = $info.name.Trim("v")
             }
             
-            $version = "::set-output name=BUILD_NUMBER::$($version)"
+            Write-Host "::set-output name=BUILD_NUMBER::$($version)"
             Write-Host $version
 
   build:
