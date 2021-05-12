@@ -148,7 +148,7 @@ jobs:
               mkdir Composite
               cd Composite
               dotnet new Maqs.Composite
-              dotnet test --logger trx --results-directory "${{github.workspace}}/Results/"
+              dotnet test --logger trx --results-directory "${{github.workspace}}/Results/" -- ''TestRunParameters.Parameter(name=\"SeleniumMaqs:Browser\",value=\"HeadlessChrome\")'' 
               cd ..
               mkdir Database
               cd Database
@@ -163,7 +163,7 @@ jobs:
               mkdir Selenium
               cd Selenium
               dotnet new Maqs.Selenium
-              dotnet test --logger trx --results-directory "${{github.workspace}}/Results/"
+              dotnet test --logger trx --results-directory "${{github.workspace}}/Results/" -- ''TestRunParameters.Parameter(name=\"SeleniumMaqs:Browser\",value=\"HeadlessChrome\")'' 
               cd ..
               mkdir Webservice
               cd Webservice
