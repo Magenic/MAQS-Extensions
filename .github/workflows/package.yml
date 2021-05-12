@@ -177,6 +177,35 @@ jobs:
           path: ${{ github.workspace }}/Results/**/*.trx    # Path to test results
           reporter: dotnet-trx
 
+  deployToGitHub:
+    needs: test
+    runs-on: windows-latest
+    environment: github
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: 'nuget'
+          path: ${{ github.workspace }}/nuget
+      - name: PLACEHOLDER
+        run: |
+          Write-Host "PLACEHOLDER"
+        shell: pwsh
+        
+
+  deployToMarketplace:
+    needs: test
+    runs-on: windows-latest
+    environment: marketplace
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: 'vsix'
+          path: ${{ github.workspace }}/vsix
+      - name: PLACEHOLDER
+        run: |
+          Write-Host "PLACEHOLDER"
+        shell: pwsh
+
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
     #- name: Upload build artifacts
     #  uses: actions/upload-artifact@v2
