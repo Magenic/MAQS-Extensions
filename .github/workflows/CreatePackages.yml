@@ -33,18 +33,18 @@ jobs:
       run: |
             if ("${{github.event.inputs.override}}")
             {
-              Write-Host "override"
+              Write-Host "Using manually entered override version"
               $version = "${{ github.event.inputs.override}}"
             }
             else
             {
+              Write-Host "Using latest MAQS release version"
               $endPoint = "https://api.github.com/repos/magenic/MAQS/releases/latest"
               $info = Invoke-RestMethod -Uri $endPoint
               $version = $info.name.Trim("v")
             }
             
             Write-Host "::set-output name=BUILD_NUMBER::$($version)"
-            Write-Host $version
 
   build:
     name: Build templates
@@ -179,7 +179,7 @@ jobs:
 
   
   MakeNewRelease:
-    name: Create new release draft v${{ needs.getVersion.outputs.buildNumber }}
+    name: Create new draft release - v${{ needs.getVersion.outputs.buildNumber }}
     needs: [getVersion, test]
     runs-on: ubuntu-latest
     environment: release
