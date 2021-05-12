@@ -35,9 +35,10 @@ jobs:
       id: ver
       shell: pwsh
       run: |
-            if ("{{ github.event.inputs.override }}")
+            if ("${{github.event.inputs.override}}")
             {
-              $version = "{{ github.event.inputs.override }}"
+              Write-Host "override"
+              $version = "${{ github.event.inputs.override}}"
             }
             else
             {
