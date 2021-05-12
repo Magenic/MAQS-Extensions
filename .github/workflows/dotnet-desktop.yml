@@ -22,11 +22,9 @@ jobs:
 
   build:
 
-    runs-on: windows-latest  # For a list of available runner types, refer to
-                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-
+    runs-on: windows-latest 
     env:
-      Solution_Name: Extensions\OpenSourceExtension.sln                      # Replace with your solution name, i.e. MyWpfApp.sln.
+      Solution_Name: Extensions\OpenSourceExtension.sln
 
     steps:
     - name: Checkout
@@ -64,6 +62,7 @@ jobs:
       with:
         dotnet-version: 5.0.x
 
+    # Add the template data to the template zip files
     - uses: actions/checkout@v1
     - name: Run zip
       run: ./TemplateZip.ps1
@@ -72,21 +71,6 @@ jobs:
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
-
-    # Execute all unit tests in the solution
-    #- name: Execute unit tests
-    #  run: dotnet test
-
-    # Restore the application to populate the obj folder with RuntimeIdentifiers
-    #- name: Restore the application
-    #  run: msbuild $env:Solution_Name /t:Restore /p:Configuration=release
-
-    # Decode the base 64 encoded pfx and save the Signing_Certificate
-    # - name: Decode the pfx
-    #   run: |
-    #    $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.Base64_Encoded_Pfx }}")
-    #    $certificatePath = Join-Path -Path $env:Wap_Project_Directory -ChildPath GitHubActionsWorkflow.pfx
-    #    [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
 
     - name: SetVersion
       id: setVer
@@ -113,6 +97,16 @@ jobs:
         name: vsix
         path: |
           artifact/VSIX/*.*
+          
+    
+    - name: Run Core Tests
+      shell: pwsh
+      run: |
+            dotnet new -i "${{github.workspace}}/artifact/NuGet/Magenic.Maqs.Templates.${{ steps.ver.outputs.BUILD_NUMBER }}.nupkg"
+            mkdir Appium
+            cd Appium
+            dotnet new Maqs.Appium
+            dotnet test
 
 
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
