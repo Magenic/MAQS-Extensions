@@ -1,4 +1,4 @@
-name: Package
+name: Create Template Packages
 
 on:
   push:
@@ -177,7 +177,23 @@ jobs:
           path: ${{ github.workspace }}/Results/**/*.trx    # Path to test results
           reporter: dotnet-trx
 
-  deployToGitHub:
+  
+  MakeNewRelease:
+    name: Make a new release
+    needs: [getVersion, test]
+    runs-on: ubuntu-latest
+
+    steps:      
+    - name: Create draft release v${{ needs.getVersion.outputs.buildNumber }}
+      shell: pwsh
+      run: |
+            $header = @{Authorization = 'Bearer ${{ secrets.GITHUB_TOKEN }}' }
+            $endPoint = "https://api.github.com/repos/${{github.repository}}/releases"
+            $body = '{"tag_name":"v${{ steps.Version.outputs.RELEASE_NUMBER }}", "name": "v${{ needs.getVersion.outputs.buildNumber }}", "draft": true}'
+            Write-Host Invoke-RestMethod -Method 'Post' -Uri $endPoint -Headers $header -Body $body
+
+  deployToNuGet:
+    name:  Deploy core template to NuGet.org
     needs: test
     runs-on: windows-latest
     environment: github
@@ -193,6 +209,7 @@ jobs:
         
 
   deployToMarketplace:
+    name:  Deploy VSIX templates to Visual Studio Marketplace
     needs: test
     runs-on: windows-latest
     environment: marketplace
