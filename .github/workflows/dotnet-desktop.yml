@@ -20,9 +20,33 @@ on:
 
 jobs:
 
-  build:
+  getVersion:
+    runs-on: ubuntu-latest 
+    outputs:
+      buildNumber: ${{ steps.ver.outputs.BUILD_NUMBER }}
+    
+    steps:
+    - name: GetVersion
+      id: ver
+      shell: pwsh
+      run: |
+            if ("{{ github.event.inputs.override }}")
+            {
+              $version = "{{ github.event.inputs.override }}"
+            }
+            else
+            {
+              $endPoint = "https://api.github.com/repos/magenic/MAQS/releases/latest"
+              $info = Invoke-RestMethod -Uri $endPoint
+              $version = $info.name.Trim("v")
+            }
+            
+            $version = "::set-output name=BUILD_NUMBER::$($version)"
+            echo $version
 
+  build:
     runs-on: windows-latest 
+    needs: getVersion
     env:
       Solution_Name: Extensions\OpenSourceExtension.sln
 
@@ -31,61 +55,10 @@ jobs:
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
-        
-    - name: GetVersion
-      id: ver
-      if: github.event.inputs.override == null
-      shell: pwsh
-      run: |
-            Write-Host {{ github.event.inputs.override }}
-            $endPoint = "https://api.github.com/repos/magenic/MAQS/releases/latest"
-            $info = Invoke-RestMethod -Uri $endPoint
-            $version = $info.name.Trim("v")
-            $version = "::set-output name=BUILD_NUMBER::$($version)"
-            echo $version
  
     - name: CreateNuGetTemplate
-      run: nuget.exe pack .\Extensions\CoreTemplates\QATBaseTemplate.nuspec -NonInteractive -OutputDirectory "${{github.workspace}}/artifact/NuGet/" -Properties Configuration=release -Symbols -version ${{ steps.ver.outputs.BUILD_NUMBER }} -Verbosity Detailed
+      run: nuget.exe pack .\Extensions\CoreTemplates\QATBaseTemplate.nuspec -NonInteractive -OutputDirectory "${{github.workspace}}/artifact/NuGet/" -Properties Configuration=release -Symbols -version ${{ needs.getVersion.outputs.buildNumber }} -Verbosity Detailed
       shell: pwsh
-      
-    - name: Run Core Tests
-      shell: pwsh
-      run: |
-            dotnet new -i "${{github.workspace}}/artifact/NuGet/Magenic.Maqs.Templates.${{ steps.ver.outputs.BUILD_NUMBER }}.nupkg"
-            mkdir Appium
-            cd Appium
-            dotnet new Maqs.Appium
-            dotnet test
-            cd ..
-            mkdir Base
-            cd Base
-            dotnet new Maqs.Base
-            dotnet test
-            cd ..
-            mkdir Composite
-            cd Composite
-            dotnet new Maqs.Composite
-            dotnet test
-            cd ..
-            mkdir Database
-            cd Database
-            dotnet new Maqs.Database
-            dotnet test
-            cd ..
-            mkdir Email
-            cd Email
-            dotnet new Maqs.Email
-            dotnet test
-            cd ..
-            mkdir Selenium
-            cd Selenium
-            dotnet new Maqs.Selenium
-            dotnet test
-            cd ..
-            mkdir Webservice
-            cd Webservice
-            dotnet new Maqs.Webservice
-            dotnet test
       
     - uses: actions/upload-artifact@v2
       if: always()
@@ -120,7 +93,7 @@ jobs:
             Write-Host $FullPath
             [xml]$content = Get-Content $FullPath
             $content.PackageManifest.Metadata.Identity.Version
-            $content.PackageManifest.Metadata.Identity.Version = "${{ steps.ver.outputs.BUILD_NUMBER }}"
+            $content.PackageManifest.Metadata.Identity.Version = "${{ needs.getVersion.outputs.buildNumber }}"
             $content.PackageManifest.Metadata.Identity.Version
             $content.Save($FullPath)
             }
@@ -136,10 +109,69 @@ jobs:
         name: vsix
         path: |
           artifact/VSIX/*.*
-          
-    
+       
+  test:
+    name: Test Core Templates
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: GetUpdatedBrowser
+        run: |
+          sudo apt-get update
+          Write-Host "Installing/Updating Chrome"
+          sudo apt-get --only-upgrade install google-chrome-stable
+        shell: pwsh
+      
+      - uses: actions/download-artifact@v2
+        with:
+          name: 'nuget'
+          path: ${{ github.workspace }}/nuget
 
-
+      - name: Run Core Tests
+        shell: pwsh
+        run: |
+              dotnet new -i "${{github.workspace}}/nuget/Magenic.Maqs.Templates.${{ needs.getVersion.outputs.buildNumber }}.nupkg"
+              mkdir Results
+              mkdir Appium
+              cd Appium
+              dotnet new Maqs.Appium
+              dotnet test
+              cd ..
+              mkdir Base
+              cd Base
+              dotnet new Maqs.Base
+              dotnet test
+              cd ..
+              mkdir Composite
+              cd Composite
+              dotnet new Maqs.Composite
+              dotnet test
+              cd ..
+              mkdir Database
+              cd Database
+              dotnet new Maqs.Database
+              dotnet test
+              cd ..
+              mkdir Email
+              cd Email
+              dotnet new Maqs.Email
+              dotnet test
+              cd ..
+              mkdir Selenium
+              cd Selenium
+              dotnet new Maqs.Selenium
+              dotnet test
+              cd ..
+              mkdir Webservice
+              cd Webservice
+              dotnet new Maqs.Webservice
+              dotnet test
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        with:
+          name: ReportResults
+          path: ${{ github.workspace }}/Results/**/*.trx    # Path to test results
+          reporter: dotnet-trx
 
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
     #- name: Upload build artifacts
