@@ -74,9 +74,10 @@ jobs:
         
     - name: GetVersion
       id: ver
-     # if: {{ github.event.inputs.override == '0.0.0' }}
+      if: github.event.inputs.override == '0.0.0'
       shell: pwsh
       run: |
+            Write-Host {{ github.event.inputs.override }}
             $endPoint = "https://api.github.com/repos/magenic/MAQS/releases/latest"
             $info = Invoke-RestMethod -Uri $endPoint
             $version = $info.name.Trim("v")
