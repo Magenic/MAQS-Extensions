@@ -54,16 +54,8 @@ jobs:
       Solution_Name: Extensions\OpenSourceExtension.sln
 
     steps:
-    - name: Echo
-      run: Write-Host ${{needs.getVersion.outputs.buildNumber}}
-      shell: pwsh
-    - name: Echo
-      run: Write-Host ${{needs.getVersion.outputs.output1}}
-      shell: pwsh
     - name: Checkout
       uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
  
     - name: CreateNuGetTemplate
       run: nuget.exe pack .\Extensions\CoreTemplates\QATBaseTemplate.nuspec -NonInteractive -OutputDirectory "${{github.workspace}}/artifact/NuGet/" -Properties Configuration=release -Symbols -version ${{needs.getVersion.outputs.buildNumber}} -Verbosity Detailed
