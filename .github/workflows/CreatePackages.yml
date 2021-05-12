@@ -179,7 +179,7 @@ jobs:
 
   
   MakeNewRelease:
-    name: Make a new release
+    name: Create new release draft v${{ needs.getVersion.outputs.buildNumber }}
     needs: [getVersion, test]
     runs-on: ubuntu-latest
     environment: release
