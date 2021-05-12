@@ -48,6 +48,45 @@ jobs:
       run: nuget.exe pack .\Extensions\CoreTemplates\QATBaseTemplate.nuspec -NonInteractive -OutputDirectory "${{github.workspace}}/artifact/NuGet/" -Properties Configuration=release -Symbols -version ${{ steps.ver.outputs.BUILD_NUMBER }} -Verbosity Detailed
       shell: pwsh
       
+    - name: Run Core Tests
+      shell: pwsh
+      run: |
+            dotnet new -i "${{github.workspace}}/artifact/NuGet/Magenic.Maqs.Templates.${{ steps.ver.outputs.BUILD_NUMBER }}.nupkg"
+            mkdir Appium
+            cd Appium
+            dotnet new Maqs.Appium
+            dotnet test
+            cd ..
+            mkdir Base
+            cd Base
+            dotnet new Maqs.Base
+            dotnet test
+            cd ..
+            mkdir Composite
+            cd Composite
+            dotnet new Maqs.Composite
+            dotnet test
+            cd ..
+            mkdir Database
+            cd Database
+            dotnet new Maqs.Database
+            dotnet test
+            cd ..
+            mkdir Email
+            cd Email
+            dotnet new Maqs.Email
+            dotnet test
+            cd ..
+            mkdir Selenium
+            cd Selenium
+            dotnet new Maqs.Selenium
+            dotnet test
+            cd ..
+            mkdir Webservice
+            cd Webservice
+            dotnet new Maqs.Webservice
+            dotnet test
+      
     - uses: actions/upload-artifact@v2
       if: always()
       name: "Upload artifacts"
@@ -99,14 +138,7 @@ jobs:
           artifact/VSIX/*.*
           
     
-    - name: Run Core Tests
-      shell: pwsh
-      run: |
-            dotnet new -i "${{github.workspace}}/artifact/NuGet/Magenic.Maqs.Templates.${{ steps.ver.outputs.BUILD_NUMBER }}.nupkg"
-            mkdir Appium
-            cd Appium
-            dotnet new Maqs.Appium
-            dotnet test
+
 
 
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
