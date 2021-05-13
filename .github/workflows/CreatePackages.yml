@@ -176,20 +176,31 @@ jobs:
 
   
   MakeNewRelease:
-    name: Create new draft release - v${{ needs.getVersion.outputs.buildNumber }}
+    name: Create new release - v${{ needs.getVersion.outputs.buildNumber }}
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     needs: [getVersion, test]
     runs-on: ubuntu-latest
     environment: release
 
     steps:      
-    - name: Create draft release v${{ needs.getVersion.outputs.buildNumber }}
+    - name: Create release
       shell: pwsh
       run: |
             $header = @{Authorization = 'Bearer ${{ secrets.GITHUB_TOKEN }}' }
             $endPoint = "https://api.github.com/repos/${{github.repository}}/releases"
             $body = '{"tag_name":"v${{ steps.Version.outputs.RELEASE_NUMBER }}", "name": "v${{ needs.getVersion.outputs.buildNumber }}", "draft": true}'
             Write-Host Invoke-RestMethod -Method 'Post' -Uri $endPoint -Headers $header -Body $body
+    - name: Create release
+      uses: actions/github-script@v4
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          github.repos.createRelease({
+            tag_name: "v${{ needs.getVersion.outputs.buildNumber }}",
+            name: "v${{ needs.getVersion.outputs.buildNumber }}",
+            owner: context.repo.owner,
+            repo: context.repo.repo
+          })
 
   deployToNuGet:
     name:  Deploy core template to NuGet.org
