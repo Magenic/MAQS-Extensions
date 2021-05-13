@@ -179,6 +179,7 @@ jobs:
   
   MakeNewRelease:
     name: Create new draft release - v${{ needs.getVersion.outputs.buildNumber }}
+    if: ${{ github.event_name == 'push' }} || ${{ github.event_name == 'workflow_dispatch' }}
     needs: [getVersion, test]
     runs-on: ubuntu-latest
     environment: release
@@ -194,6 +195,7 @@ jobs:
 
   deployToNuGet:
     name:  Deploy core template to NuGet.org
+    if: ${{ github.event_name == 'push' }} || ${{ github.event_name == 'workflow_dispatch' }}
     needs: test
     runs-on: windows-latest
     environment: nuget
@@ -210,6 +212,7 @@ jobs:
 
   deployToMarketplace:
     name:  Deploy VSIX templates to Visual Studio Marketplace
+    if: ${{ github.event_name == 'push' }} || ${{ github.event_name == 'workflow_dispatch' }}
     needs: test
     runs-on: windows-latest
     environment: marketplace
