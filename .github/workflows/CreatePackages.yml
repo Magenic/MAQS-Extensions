@@ -13,9 +13,7 @@ on:
       override:
         description: 'Version Number'     
         required: true
-        default: '0.0.0'
-      tags:
-        description: 'Manual'  
+        default: '0.0.0' 
 
 jobs:
 
