@@ -193,13 +193,6 @@ jobs:
 
     steps:      
     - name: Create release
-      shell: pwsh
-      run: |
-            $header = @{Authorization = 'Bearer ${{ secrets.GITHUB_TOKEN }}' }
-            $endPoint = "https://api.github.com/repos/${{github.repository}}/releases"
-            $body = '{"tag_name":"v${{ steps.Version.outputs.RELEASE_NUMBER }}", "name": "v${{ needs.getVersion.outputs.buildNumber }}", "draft": true}'
-            Write-Host Invoke-RestMethod -Method 'Post' -Uri $endPoint -Headers $header -Body $body
-    - name: Create release
       uses: actions/github-script@v4
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
@@ -243,10 +236,3 @@ jobs:
         run: |
           Write-Host "PLACEHOLDER"
         shell: pwsh
-
-    # Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
-    #- name: Upload build artifacts
-    #  uses: actions/upload-artifact@v2
-    #  with:
-    #    name: MSIX Package
-    #    path: ${{ env.Wap_Project_Directory }}\AppPackages
