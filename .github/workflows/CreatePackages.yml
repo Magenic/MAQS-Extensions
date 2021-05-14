@@ -1,0 +1,238 @@
+name: Create Template Packages
+
+on:
+  push:
+    branches: 
+      - master
+    
+  pull_request:
+    branches: [ master ]
+    
+  workflow_dispatch:
+    inputs:
+      override:
+        description: 'Version Number'     
+        required: true
+        default: '0.0.0' 
+
+jobs:
+  stopOld:
+    name: Cancel Previous Runs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel
+        uses: styfle/cancel-workflow-action@0.9.0
+        with:
+          access_token: ${{ github.token }}
+
+  getVersion:
+    name: Get package version
+    needs: stopOld
+    runs-on: ubuntu-latest 
+    outputs:
+      buildNumber: ${{ steps.ver.outputs.BUILD_NUMBER }}
+    
+    steps: 
+    - name: GetVersion
+      id: ver
+      shell: pwsh
+      run: |
+            if ("${{github.event.inputs.override}}")
+            {
+              Write-Host "Using manually entered override version"
+              $version = "${{ github.event.inputs.override}}"
+            }
+            else
+            {
+              Write-Host "Using latest MAQS release version"
+              $endPoint = "https://api.github.com/repos/magenic/MAQS/releases/latest"
+              $info = Invoke-RestMethod -Uri $endPoint
+              $version = $info.name.Trim("v")
+            }
+            
+            Write-Host "::set-output name=BUILD_NUMBER::$($version)"
+
+  build:
+    name: Build templates
+    runs-on: windows-latest 
+    needs: getVersion
+    env:
+      Solution_Name: Extensions\OpenSourceExtension.sln
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+ 
+    - name: CreateNuGetTemplate
+      run: nuget.exe pack .\Extensions\CoreTemplates\QATBaseTemplate.nuspec -NonInteractive -OutputDirectory "${{github.workspace}}/artifact/NuGet/" -Properties Configuration=release -Symbols -version ${{needs.getVersion.outputs.buildNumber}} -Verbosity Detailed
+      shell: pwsh
+      
+    - uses: actions/upload-artifact@v2
+      if: always()
+      name: "Upload artifacts"
+      with:
+        name: nuget
+        path: |
+          artifact/NuGet/*.*
+
+    # Install the .NET Core workload
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+
+    # Add the template data to the template zip files
+    - uses: actions/checkout@v1
+    - name: Run zip
+      run: ./TemplateZip.ps1
+      shell: pwsh
+
+    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: SetVersion
+      id: setVer
+      shell: pwsh
+      run: |
+            Get-ChildItem *.vsixmanifest -recurse | foreach { 
+            $FullPath =  [System.IO.Path]::GetFullPath($_)
+            Write-Host $FullPath
+            [xml]$content = Get-Content $FullPath
+            $content.PackageManifest.Metadata.Identity.Version
+            $content.PackageManifest.Metadata.Identity.Version = "${{ needs.getVersion.outputs.buildNumber }}"
+            $content.PackageManifest.Metadata.Identity.Version
+            $content.Save($FullPath)
+            }
+
+    # Create the app package by building and packaging the Windows Application Packaging project
+    - name: Create the VSIX package
+      run: msbuild $env:Solution_Name /p:Configuration=release /p:OutputPath="${{github.workspace}}/artifact/VSIX/" 
+
+    - uses: actions/upload-artifact@v2
+      if: always()
+      name: "Upload artifacts"
+      with:
+        name: vsix
+        path: |
+          artifact/VSIX/*.*
+       
+  test:
+    name: Test core templates
+    runs-on: ubuntu-latest
+    needs: [getVersion, build]
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: GetUpdatedBrowser
+        run: |
+          sudo apt-get update
+          Write-Host "Installing/Updating Chrome"
+          sudo apt-get --only-upgrade install google-chrome-stable
+        shell: pwsh
+      
+      - uses: actions/download-artifact@v2
+        with:
+          name: 'nuget'
+          path: ${{ github.workspace }}/nuget
+
+      - name: Run Core Tests
+        shell: pwsh
+        run: |
+              dotnet new -i "${{github.workspace}}/nuget/Magenic.Maqs.Templates.${{ needs.getVersion.outputs.buildNumber }}.nupkg"
+              mkdir Results
+              mkdir Appium
+              cd Appium
+              dotnet new Maqs.Appium
+              dotnet test --logger trx --results-directory "${{github.workspace}}/Results/"
+              cd ..
+              mkdir Base
+              cd Base
+              dotnet new Maqs.Base
+              dotnet test --logger trx --results-directory "${{github.workspace}}/Results/"
+              cd ..
+              mkdir Composite
+              cd Composite
+              dotnet new Maqs.Composite
+              dotnet test --logger trx --results-directory '${{github.workspace}}/Results/' -- 'TestRunParameters.Parameter(name=\"SeleniumMaqs:Browser\",value=\"HeadlessChrome\")' 
+              cd ..
+              mkdir Database
+              cd Database
+              dotnet new Maqs.Database
+              dotnet test --logger trx --results-directory "${{github.workspace}}/Results/"
+              cd ..
+              mkdir Email
+              cd Email
+              dotnet new Maqs.Email
+              dotnet test --logger trx --results-directory "${{github.workspace}}/Results/"
+              cd ..
+              mkdir Selenium
+              cd Selenium
+              dotnet new Maqs.Selenium
+              dotnet test --logger trx --results-directory '${{github.workspace}}/Results/' -- 'TestRunParameters.Parameter(name=\"SeleniumMaqs:Browser\",value=\"HeadlessChrome\")' 
+              cd ..
+              mkdir Webservice
+              cd Webservice
+              dotnet new Maqs.Webservice
+              dotnet test --logger trx --results-directory "${{github.workspace}}/Results/"
+              
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        with:
+          name: ReportResults
+          path: ${{ github.workspace }}/Results/**/*.trx    # Path to test results
+          reporter: dotnet-trx
+
+  
+  MakeNewRelease:
+    name: Create new release - v${{ needs.getVersion.outputs.buildNumber }}
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    needs: [getVersion, test]
+    runs-on: ubuntu-latest
+    environment: release
+
+    steps:      
+    - name: Create release
+      uses: actions/github-script@v4
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          github.repos.createRelease({
+            tag_name: "v${{ needs.getVersion.outputs.buildNumber }}",
+            name: "v${{ needs.getVersion.outputs.buildNumber }}",
+            owner: context.repo.owner,
+            repo: context.repo.repo
+          })
+
+  deployToNuGet:
+    name:  Deploy core template to NuGet.org
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    needs: test
+    runs-on: windows-latest
+    environment: nuget
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: 'nuget'
+          path: ${{ github.workspace }}/nuget
+      - name: PLACEHOLDER
+        run: |
+          Write-Host "PLACEHOLDER"
+        shell: pwsh
+        
+
+  deployToMarketplace:
+    name:  Deploy VSIX templates to Visual Studio Marketplace
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    needs: test
+    runs-on: windows-latest
+    environment: marketplace
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: 'vsix'
+          path: ${{ github.workspace }}/vsix
+      - name: PLACEHOLDER
+        run: |
+          Write-Host "PLACEHOLDER"
+        shell: pwsh
