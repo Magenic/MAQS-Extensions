@@ -241,6 +241,6 @@ jobs:
           Write-Host $VsixPublisher
 
           # Publish to VSIX to the marketplace
-          & $VsixPublisher publish -payload "${{ github.workspace }}/vsix/OpenMaqs.vsix" -publishManifest "${{ github.workspace }}/vsix/publishManifest.json" -personalAccessToken ${{ secrets.APIKEY }} -ignoreWarnings "VSIXValidatorWarning08"
+          & $VsixPublisher publish -payload "${{ github.workspace }}/vsix/OpenMaqs.vsix" -publishManifest "${{ github.workspace }}/vsix/publishManifest.json" -personalAccessToken ${{ secrets.VSIXKEY }} -ignoreWarnings "VSIXValidatorWarning08"
         shell: pwsh
         working-directory: ${{ github.workspace }}/vsix
