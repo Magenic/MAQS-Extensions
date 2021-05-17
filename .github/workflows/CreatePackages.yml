@@ -215,9 +215,9 @@ jobs:
         with:
           name: 'nuget'
           path: ${{ github.workspace }}/nuget
-      - name: PLACEHOLDER
+      - name: Deploy NuGet template to NuGet.org
         run: |
-          Write-Host "PLACEHOLDER"
+          dotnet nuget push ${{ github.workspace }}/nuget/**/*.nupkg --api-key ${{ secrets.APIKEY }} --source https://api.nuget.org/v3/index.json
         shell: pwsh
         
 
@@ -232,7 +232,9 @@ jobs:
         with:
           name: 'vsix'
           path: ${{ github.workspace }}/vsix
-      - name: PLACEHOLDER
+      - name: Publish to marketplace
         run: |
-          Write-Host "PLACEHOLDER"
+          npm install -g vsce
+          vsce publish --pat ${{ secrets.VSIXKEY }} 
         shell: pwsh
+        working-directory: ${{ github.workspace }}/vsix
