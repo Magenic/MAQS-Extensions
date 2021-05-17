@@ -205,7 +205,7 @@ jobs:
           })
 
   deployToNuGet:
-    name:  Deploy core template to NuGet.org
+    name:  Push core template to NuGet.org
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     needs: test
     runs-on: windows-latest
@@ -215,7 +215,7 @@ jobs:
         with:
           name: 'nuget'
           path: ${{ github.workspace }}/nuget
-      - name: Deploy NuGet template to NuGet.org
+      - name: Push template package
         run: |
           dotnet nuget push ${{ github.workspace }}/nuget/**/*.nupkg --api-key ${{ secrets.APIKEY }} --source https://api.nuget.org/v3/index.json
         shell: pwsh
