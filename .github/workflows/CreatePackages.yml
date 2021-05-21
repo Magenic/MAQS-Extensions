@@ -64,7 +64,7 @@ jobs:
       uses: actions/checkout@v2
  
     - name: CreateNuGetTemplate
-      run: nuget.exe pack .\Extensions\CoreTemplates\QATBaseTemplate.nuspec -NonInteractive -OutputDirectory "${{github.workspace}}/artifact/NuGet/" -Properties Configuration=release -Symbols -version ${{needs.getVersion.outputs.buildNumber}} -Verbosity Detailed
+      run: nuget.exe pack .\Extensions\CoreTemplates\QATBaseTemplate.nuspec -NonInteractive -OutputDirectory "${{github.workspace}}/artifact/NuGet/" -Properties Configuration=release -version ${{needs.getVersion.outputs.buildNumber}} -Verbosity Detailed
       shell: pwsh
       
     - uses: actions/upload-artifact@v2
@@ -205,7 +205,7 @@ jobs:
           })
 
   deployToNuGet:
-    name:  Deploy core template to NuGet.org
+    name:  Push core template to NuGet.org
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     needs: test
     runs-on: windows-latest
@@ -215,9 +215,9 @@ jobs:
         with:
           name: 'nuget'
           path: ${{ github.workspace }}/nuget
-      - name: PLACEHOLDER
+      - name: Push template package
         run: |
-          Write-Host "PLACEHOLDER"
+          dotnet nuget push ${{ github.workspace }}/nuget/**/*.nupkg --api-key ${{ secrets.APIKEY }} --source https://api.nuget.org/v3/index.json
         shell: pwsh
         
 
@@ -232,7 +232,15 @@ jobs:
         with:
           name: 'vsix'
           path: ${{ github.workspace }}/vsix
-      - name: PLACEHOLDER
+      - name: Publish to marketplace
         run: |
-          Write-Host "PLACEHOLDER"
+          # Find the location of VsixPublisher
+          $Installation = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -prerelease -format json | ConvertFrom-Json
+
+          $VsixPublisher = Join-Path -Path $Installation.installationPath -ChildPath "VSSDK\VisualStudioIntegration\Tools\Bin\VsixPublisher.exe" -Resolve
+          Write-Host $VsixPublisher
+
+          # Publish to VSIX to the marketplace
+          & $VsixPublisher publish -payload "${{ github.workspace }}/vsix/OpenMaqs.vsix" -publishManifest "${{ github.workspace }}/vsix/publishManifest.json" -personalAccessToken ${{ secrets.VSIXKEY }} -ignoreWarnings "VSIXValidatorWarning08"
         shell: pwsh
+        working-directory: ${{ github.workspace }}/vsix
