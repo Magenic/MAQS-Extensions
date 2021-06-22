@@ -178,6 +178,8 @@ jobs:
               
       - name: Test Report
         uses: dorny/test-reporter@v1
+        # Skip because dependabot cannot access the associated resources
+        if: github.actor != 'dependabot[bot]'
         with:
           name: ReportResults
           path: ${{ github.workspace }}/Results/**/*.trx    # Path to test results
