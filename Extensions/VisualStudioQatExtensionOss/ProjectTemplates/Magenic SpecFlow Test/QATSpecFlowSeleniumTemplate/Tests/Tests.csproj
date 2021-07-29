@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Magenic.Maqs.Selenium" Version="6.4.1" />
-    <PackageReference Include="Magenic.Maqs.SpecFlow" Version="6.4.0" />
+    <PackageReference Include="Magenic.Maqs.SpecFlow" Version="6.4.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
     <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />
