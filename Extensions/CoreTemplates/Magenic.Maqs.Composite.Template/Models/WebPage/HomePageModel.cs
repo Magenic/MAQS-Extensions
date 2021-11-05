@@ -1,6 +1,5 @@
 ﻿using Magenic.Maqs.BaseSeleniumTest;
 using Magenic.Maqs.BaseSeleniumTest.Extensions;
-using Magenic.Maqs.Utilities.Helper;
 using OpenQA.Selenium;
 
 namespace Models
@@ -14,7 +13,7 @@ namespace Models
         /// Initializes a new instance of the <see cref="HomePageModel" /> class.
         /// </summary>
         /// <param name="testObject">The selenium test object</param>
-        public HomePageModel(SeleniumTestObject testObject) : base(testObject)
+        public HomePageModel(ISeleniumTestObject testObject) : base(testObject)
         {
         }
 

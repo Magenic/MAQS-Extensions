@@ -1,7 +1,5 @@
 using Magenic.Maqs.BaseDatabaseTest;
 using NUnit.Framework;
-using System.Data;
-using System.Linq;
 
 namespace $safeprojectname$
 {
@@ -18,8 +16,8 @@ namespace $safeprojectname$
         public void GetRecordTestNUnit()
         {
             // TODO: Update database connection configuration and add test code
-            // var result = this.DatabaseDriver.Query("getStateAbbrevMatch", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
-            // Assert.AreEqual(1, result.Count(), "Expected 1 state abbreviation to be returned.");
+            //var result = this.DatabaseDriver.Query("getStateAbbrevMatch", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
+            //Assert.AreEqual(1, result.Count(), "Expected 1 state abbreviation to be returned.");
 
             this.Log.LogMessage("Dummy test");
         }

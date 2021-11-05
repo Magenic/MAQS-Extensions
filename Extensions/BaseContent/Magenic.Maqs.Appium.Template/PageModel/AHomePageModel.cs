@@ -11,7 +11,7 @@ namespace PageModel
         /// Initializes a new instance of the <see cref="AHomePageModel"/> class
         /// </summary>
         /// <param name="testObject">The base Appium test object</param>
-        protected AHomePageModel(AppiumTestObject testObject)
+        protected AHomePageModel(IAppiumTestObject testObject)
             : base(testObject)
         {
         }
