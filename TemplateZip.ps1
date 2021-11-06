@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
     Zips the MAQS project templates.
 .DESCRIPTION
@@ -22,6 +22,11 @@
   Author:         Magenic
   Creation Date:  10/11/2019
   Purpose/Change: Remove depracated template.
+  
+  Version:        4.0
+  Author:         Magenic
+  Creation Date:  11/6/2021
+  Purpose/Change: Add SpecFlow templates.
   
 .EXAMPLE
   ./TemplateUpdates
@@ -61,9 +66,12 @@ function ZipFiles($inputDirectory, $outputDirectory) {
 
 function WorkflowFunction($openSource, $specSource) {
     if ($openSource) {
+        ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic SpecFlow Test" $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic SpecFlow Test"
+        ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic SpecFlow Test\NUnit" $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic SpecFlow Test\NUnit"
         ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test" $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test"
         ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test Core" $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test Core"
         ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ItemTemplates\Magenic Test" $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ItemTemplates\Magenic Test"
+        ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ItemTemplates\Magenic SpecFlow Test" $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ItemTemplates\Magenic SpecFlow Test"        
     }
     
 }
