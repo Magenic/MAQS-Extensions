@@ -1,89 +1,79 @@
-﻿<#
+<#
 .SYNOPSIS
     Zips the MAQS project templates.
 .DESCRIPTION
-    This powershell script is used to update the core and framework templates from the base content.  
-    This way we can just update base content and not core and framework seperately.
+    This powershell script is used to zip the MAQS project templates. Editing of parameters in the powershell file may be necessary.
+.PARAMETER openSource
+    Set true if the openSource version of MAQS should be updated
+.PARAMETER specSource
+    Set true if the SpecFlow version of MAQS should be updated
 .NOTES
   Version:        1.0
   Author:         Magenic
-  Creation Date:  05/10/2021
+  Creation Date:  05/16/2017
   Purpose/Change: Initial script development. 
+
+  Version:        2.0
+  Author:         Magenic
+  Creation Date:  07/9/2018
+  Purpose/Change: Add SpecFlow build support. Add item template support.
+
+  Version:        3.0
+  Author:         Magenic
+  Creation Date:  10/11/2019
+  Purpose/Change: Remove depracated template.
+  
+  Version:        4.0
+  Author:         Magenic
+  Creation Date:  11/6/2021
+  Purpose/Change: Add SpecFlow templates.
+  
+.EXAMPLE
+  ./TemplateUpdates
+
+  This command will zip to the open or closed source version of MAQs, depending on which flags are hardcoded to default to true.
+.EXAMPLE
+  ./TemplateUpdates -openSource $true
+
+  This command will zip the open source templates.
 #>
 
-Function UpdateCore {
-    Param ($source, $dest)
-    $source = $source +"\*"
-    Copy-Item -Path $source -Destination $dest -Recurse -force
-    Get-ChildItem -Path $dest -Filter App.config -Recurse | Remove-Item -Force
- }
+param (
+    [bool]$openSource = $true,
+    [bool]$specSource = $true
+)
 
- Function UpdateCoreStudio {
-    Param ($source, $dest)
-    UpdateCore $source $dest
+###################################################################################################################
+function ZipFiles($inputDirectory, $outputDirectory) {
+    $nunitDir1 = $inputDirectory + "\NUnit"
+    $nunitDir2 = $inputDirectory + "\NUnit Only"
 
-    $testsFiles = $dest + "\Tests\*\"  
-    Get-ChildItem -Path $testsFiles -Include *.cs -Recurse | ForEach-Object {
+    Set-Location $inputDirectory
+    $relativePath = Get-ChildItem $inputDirectory -Directory | Resolve-Path -Relative
+    ForEach ($file in $relativePath) {
+        $file = $file.TrimStart(".", " ", "\")
+        $input = $inputDirectory + "\" + $file
+        $inputDir = $input + "\*"
+        $destination = $outputDirectory + "\" + $file + ".zip"
 
-    $find = 'namespace Tests'
-    $replace = 'namespace $safeprojectname$'
-
-    (Get-Content -Path $_.FullName) -replace $find, $replace | Set-Content -Path $_.FullName
-   }
- }
-
- Function UpdateFrameworkStudio {
-        Param ($source, $dest)
-
-    $source = $source +"\*"
-    Copy-Item -Path $source -Destination $dest -Recurse -force
-    Get-ChildItem -Path $dest -Filter appsettings.json -Recurse | Remove-Item -Force
-
-    $testsFiles = $dest + "\Tests\*\"  
-    Get-ChildItem -Path $testsFiles -Include *.cs -Recurse | ForEach-Object {
-        $find = 'namespace Tests'
-        $replace = 'namespace $safeprojectname$'
-
-        (Get-Content -Path $_.FullName) -replace $find, $replace | Set-Content -Path $_.FullName
+        if (($input -ne $nunitDir1) -and ($input -ne $nunitDir2) -and ($input -ne $outputDirectory)) {
+            Write-Host "Zipping " $input
+            Compress-Archive -Path $inputDir -DestinationPath $destination -Force
+            ##Copy-Item "C:\Users\TroyW\Desktop\QATBaseTemplate.zip" -Destination $destination -Force
+        }
     }
+}
 
-    Get-ChildItem -Path $dest -Include *.csproj -Recurse | ForEach-Object {
-        $findVer = 'netcoreapp3.1'
-        $replaceVer = 'net471'
-
-        $findConfig = 'appsettings.json'
-        $replaceConfig = 'App.config'
-
-        (Get-Content -Path $_.FullName) -replace $findVer, $replaceVer | Set-Content -Path $_.FullName
-        (Get-Content -Path $_.FullName) -replace $findConfig, $replaceConfig | Set-Content -Path $_.FullName
+function WorkflowFunction($openSource, $specSource) {
+    if ($openSource) {
+        ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic SpecFlow Test" $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic SpecFlow Test"
+        ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic SpecFlow Test\NUnit" $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic SpecFlow Test\NUnit"
+        ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test" $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test"
+        ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test Core" $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test Core"
+        ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ItemTemplates\Magenic Test" $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ItemTemplates\Magenic Test"
+        ZipFiles $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ItemTemplates\Magenic SpecFlow Test" $PSScriptRoot"\Extensions\VisualStudioQatExtensionOss\ItemTemplates\Magenic SpecFlow Test"        
     }
- }
+    
+}
 
- UpdateCoreStudio $PSScriptRoot"\BaseContent\Magenic.Maqs.Appium.Template" $PSScriptRoot"\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test Core\QATAppiumTemplate"
- UpdateFrameworkStudio $PSScriptRoot"\BaseContent\Magenic.Maqs.Appium.Template" $PSScriptRoot"\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test\QATAppiumTemplate"
- UpdateCore $PSScriptRoot"\BaseContent\Magenic.Maqs.Appium.Template" $PSScriptRoot"\CoreTemplates\Magenic.Maqs.Appium.Template"
-
-
- UpdateCoreStudio $PSScriptRoot"\BaseContent\Magenic.Maqs.Base.Template" $PSScriptRoot"\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test Core\QATBaseTemplate"
- UpdateFrameworkStudio $PSScriptRoot"\BaseContent\Magenic.Maqs.Base.Template" $PSScriptRoot"\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test\QATBaseTemplate"
- UpdateCore $PSScriptRoot"\BaseContent\Magenic.Maqs.Base.Template" $PSScriptRoot"\CoreTemplates\Magenic.Maqs.Base.Template"
-
- UpdateCoreStudio $PSScriptRoot"\BaseContent\Magenic.Maqs.Composite.Template" $PSScriptRoot"\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test Core\QATCompositeTemplate"
- UpdateFrameworkStudio $PSScriptRoot"\BaseContent\Magenic.Maqs.Composite.Template" $PSScriptRoot"\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test\QATCompositeTemplate"
- UpdateCore $PSScriptRoot"\BaseContent\Magenic.Maqs.Composite.Template" $PSScriptRoot"\CoreTemplates\Magenic.Maqs.Composite.Template"
-
- UpdateCoreStudio $PSScriptRoot"\BaseContent\Magenic.Maqs.Database.Template" $PSScriptRoot"\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test Core\QATDatabaseTemplate"
- UpdateFrameworkStudio $PSScriptRoot"\BaseContent\Magenic.Maqs.Database.Template" $PSScriptRoot"\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test\QATDatabaseTemplate"
- UpdateCore $PSScriptRoot"\BaseContent\Magenic.Maqs.Database.Template" $PSScriptRoot"\CoreTemplates\Magenic.Maqs.Database.Template"
-
- UpdateCoreStudio $PSScriptRoot"\BaseContent\Magenic.Maqs.Email.Template" $PSScriptRoot"\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test Core\QATEmailTemplate"
- UpdateFrameworkStudio $PSScriptRoot"\BaseContent\Magenic.Maqs.Email.Template" $PSScriptRoot"\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test\QATEmailTemplate"
- UpdateCore $PSScriptRoot"\BaseContent\Magenic.Maqs.Email.Template" $PSScriptRoot"\CoreTemplates\Magenic.Maqs.Email.Template"
-
- UpdateCoreStudio $PSScriptRoot"\BaseContent\Magenic.Maqs.Selenium.Template" $PSScriptRoot"\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test Core\QATSeleniumTemplate"
- UpdateFrameworkStudio $PSScriptRoot"\BaseContent\Magenic.Maqs.Selenium.Template" $PSScriptRoot"\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test\QATSeleniumTemplate"
- UpdateCore $PSScriptRoot"\BaseContent\Magenic.Maqs.Selenium.Template" $PSScriptRoot"\CoreTemplates\Magenic.Maqs.Selenium.Template"
- 
- UpdateCoreStudio $PSScriptRoot"\BaseContent\Magenic.Maqs.Webservice.Template" $PSScriptRoot"\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test Core\QATWebserviceTemplate"
- UpdateFrameworkStudio $PSScriptRoot"\BaseContent\Magenic.Maqs.Webservice.Template" $PSScriptRoot"\VisualStudioQatExtensionOss\ProjectTemplates\Magenic Test\QATWebserviceTemplate"
- UpdateCore $PSScriptRoot"\BaseContent\Magenic.Maqs.Webservice.Template" $PSScriptRoot"\CoreTemplates\Magenic.Maqs.Webservice.Template"
+WorkflowFunction $openSource $specSource
