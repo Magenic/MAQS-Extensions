@@ -12,7 +12,7 @@ namespace Models.Mobile
         /// Initializes a new instance of the <see cref="ALoginPageModel"/> class
         /// </summary>
         /// <param name="testObject">The base Appium test object</param>
-        protected ALoginPageModel(AppiumTestObject testObject)
+        protected ALoginPageModel(IAppiumTestObject testObject)
             : base(testObject)
         {
         }

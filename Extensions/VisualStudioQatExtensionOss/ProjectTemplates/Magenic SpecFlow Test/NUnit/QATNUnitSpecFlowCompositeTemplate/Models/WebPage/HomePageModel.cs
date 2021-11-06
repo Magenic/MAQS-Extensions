@@ -19,7 +19,7 @@ namespace Models.WebPage
         /// Initializes a new instance of the <see cref="$safeitemname$" /> class.
         /// </summary>
         /// <param name="testObject">The selenium test object</param>
-        public $safeitemname$(SeleniumTestObject testObject) : base(testObject)
+        public $safeitemname$(ISeleniumTestObject testObject) : base(testObject)
         {
         }
 
