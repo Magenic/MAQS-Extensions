@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
@@ -102,17 +102,39 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <None Include="ItemTemplates\Magenic SpecFlow Test\AppiumSteps.zip" />
-    <None Include="ItemTemplates\Magenic SpecFlow Test\DatabaseFeature.zip" />
-    <None Include="ItemTemplates\Magenic SpecFlow Test\DatabaseSteps.zip" />
-    <None Include="ItemTemplates\Magenic SpecFlow Test\EmailFeature.zip" />
-    <None Include="ItemTemplates\Magenic SpecFlow Test\EmailSteps.zip" />
-    <None Include="ItemTemplates\Magenic SpecFlow Test\GeneralFeature.zip" />
-    <None Include="ItemTemplates\Magenic SpecFlow Test\GeneralSteps.zip" />
-    <None Include="ItemTemplates\Magenic SpecFlow Test\SeleniumFeature.zip" />
-    <None Include="ItemTemplates\Magenic SpecFlow Test\SeleniumSteps.zip" />
-    <None Include="ItemTemplates\Magenic SpecFlow Test\WebServiceFeature.zip" />
-    <None Include="ItemTemplates\Magenic SpecFlow Test\WebServiceSteps.zip" />
+    <Content Include="ItemTemplates\Magenic SpecFlow Test\AppiumSteps.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic SpecFlow Test\DatabaseFeature.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic SpecFlow Test\DatabaseSteps.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic SpecFlow Test\EmailFeature.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic SpecFlow Test\EmailSteps.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic SpecFlow Test\GeneralFeature.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic SpecFlow Test\GeneralSteps.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic SpecFlow Test\SeleniumFeature.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic SpecFlow Test\SeleniumSteps.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic SpecFlow Test\WebServiceFeature.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ItemTemplates\Magenic SpecFlow Test\WebServiceSteps.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="Key.snk" />
     <Content Include="ProjectTemplates\Magenic Test\QATCompositeTemplate.zip">
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -159,15 +181,24 @@
     <None Include="Overview.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ProjectTemplates\Magenic SpecFlow Test\NUnit\QATNUnitSpecFlowAppiumTemplate.zip" />
-    <None Include="ProjectTemplates\Magenic SpecFlow Test\NUnit\QATNUnitSpecFlowCompositeTemplate.zip" />
-    <None Include="ProjectTemplates\Magenic SpecFlow Test\NUnit\QATNUnitSpecFlowSeleniumTemplate.zip" />
-    <Content Include="ProjectTemplates\Magenic SpecFlow Test\QATSpecFlowAppiumTemplate.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="ProjectTemplates\Magenic SpecFlow Test\NUnit\QATNUnitSpecFlowAppiumTemplate.zip">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <None Include="ProjectTemplates\Magenic SpecFlow Test\QATSpecFlowCompositeTemplate.zip" />
-    <None Include="ProjectTemplates\Magenic SpecFlow Test\QATSpecFlowSeleniumTemplate.zip" />
+    <Content Include="ProjectTemplates\Magenic SpecFlow Test\NUnit\QATNUnitSpecFlowCompositeTemplate.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Magenic SpecFlow Test\NUnit\QATNUnitSpecFlowSeleniumTemplate.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Magenic SpecFlow Test\QATSpecFlowAppiumTemplate.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Magenic SpecFlow Test\QATSpecFlowCompositeTemplate.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Magenic SpecFlow Test\QATSpecFlowSeleniumTemplate.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="publishManifest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
