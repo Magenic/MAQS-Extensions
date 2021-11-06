@@ -1,6 +1,5 @@
 ﻿using Magenic.Maqs.BaseDatabaseTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
 
 namespace Tests
 {

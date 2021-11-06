@@ -1,6 +1,5 @@
 ﻿using Magenic.Maqs.BaseSeleniumTest;
 using Magenic.Maqs.BaseSeleniumTest.Extensions;
-using Magenic.Maqs.Utilities.Helper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 
@@ -20,7 +19,7 @@ namespace PageModel
         /// Initializes a new instance of the <see cref="LoginPageModel" /> class.
         /// </summary>
         /// <param name="testObject">The test object</param>
-        public LoginPageModel(SeleniumTestObject testObject) : base(testObject)
+        public LoginPageModel(ISeleniumTestObject testObject) : base(testObject)
         {
         }
 

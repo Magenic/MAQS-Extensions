@@ -1,6 +1,5 @@
 ﻿using Magenic.Maqs.BaseSeleniumTest;
 using Magenic.Maqs.BaseSeleniumTest.Extensions;
-using Magenic.Maqs.Utilities.Helper;
 using OpenQA.Selenium;
 
 namespace PageModel
@@ -11,15 +10,10 @@ namespace PageModel
     public class HomePageModel : BaseSeleniumPageModel
     {
         /// <summary>
-        /// The page url
-        /// </summary>
-        private static string PageUrl = SeleniumConfig.GetWebSiteBase() + "Static/Training3/HomePage.html";
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="HomePageModel" /> class.
         /// </summary>
         /// <param name="testObject">The selenium test object</param>
-        public HomePageModel(SeleniumTestObject testObject) : base(testObject)
+        public HomePageModel(ISeleniumTestObject testObject) : base(testObject)
         {
         }
 

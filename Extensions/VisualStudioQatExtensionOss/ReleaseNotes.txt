@@ -1,4 +1,7 @@
 MAQS Framework Release Notes:
+7.*.* - 2021/11/05 +
+    See release notes at: https://github.com/Magenic/MAQS/releases
+
 6.*.* - 2020/07/01 +
     See release notes at: https://github.com/Magenic/MAQS/releases
 

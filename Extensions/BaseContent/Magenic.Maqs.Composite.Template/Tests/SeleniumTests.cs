@@ -22,7 +22,7 @@ namespace Tests
         public static void TestSetup(TestContext context)
         {
             // Do database setup
-            using (DatabaseDriver wrapper = new DatabaseDriver(DatabaseConfig.GetProviderTypeString() ,DatabaseConfig.GetConnectionString()))
+            using (DatabaseDriver wrapper = new DatabaseDriver(DatabaseConfig.GetProviderTypeString(), DatabaseConfig.GetConnectionString()))
             {
                 var result = wrapper.Query("getStateAbbrevMatch", new { StateAbbreviation = "MN" }, commandType: CommandType.StoredProcedure);
                 Assert.AreEqual(1, result.Count(), "Expected 1 state abbreviation to be returned.");

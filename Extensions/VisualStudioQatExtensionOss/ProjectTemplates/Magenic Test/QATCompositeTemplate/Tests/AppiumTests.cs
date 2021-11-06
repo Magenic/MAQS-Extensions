@@ -1,10 +1,9 @@
-using System;
 using Magenic.Maqs.BaseAppiumTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.iOS;
-using OpenQA.Selenium.Appium.Android;
 using Models.Mobile;
+using OpenQA.Selenium.Appium.Android;
+using OpenQA.Selenium.Appium.iOS;
+using System;
 
 namespace $safeprojectname$
 {
@@ -14,7 +13,7 @@ namespace $safeprojectname$
     [TestClass]
     public class AppiumTests : BaseAppiumTest
     {
-         /// <summary>
+        /// <summary>
         /// The starting page
         /// </summary>
         private ALoginPageModel startingPage;
@@ -27,11 +26,11 @@ namespace $safeprojectname$
         {
             // TODO: Update Appium connection configuration and reenable this code
             //Type driverType = this.TestObject.AppiumDriver.GetType();
-            //if (driverType == typeof(IOSDriver<AppiumWebElement>))
+            //if (driverType == typeof(IOSDriver))
             //{
             //    startingPage = new IOSLoginPageModel(this.TestObject);
             //}
-            //else if (driverType == typeof(AndroidDriver<AppiumWebElement>))
+            //else if (driverType == typeof(AndroidDriver))
             //{
             //    startingPage = new AndroidLoginPageModel(this.TestObject);
             //}
@@ -55,7 +54,7 @@ namespace $safeprojectname$
             this.Log.LogMessage("Dummy test");
         }
 
-		/// <summary>
+        /// <summary>
         /// Verifies a user can login with valid creds
         /// </summary>
         [TestMethod]

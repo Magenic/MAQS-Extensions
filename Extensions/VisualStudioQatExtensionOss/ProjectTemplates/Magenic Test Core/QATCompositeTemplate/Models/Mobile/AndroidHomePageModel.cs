@@ -36,7 +36,7 @@ namespace Models.Mobile
         /// Initializes a new instance of the <see cref="AndroidHomePageModel" /> class.
         /// </summary>
         /// <param name="testObject">The appium test object</param>
-        public AndroidHomePageModel(AppiumTestObject testObject) : base(testObject)
+        public AndroidHomePageModel(IAppiumTestObject testObject) : base(testObject)
         {
         }
     }

@@ -16,7 +16,7 @@ namespace Tests
         public void SampleTestNUnit()
         {
             // TODO: Update email connection configuration and add test code
-            // Assert.IsTrue(this.EmailDriver.CanAccessEmailAccount(), "Could not access account");
+            //Assert.IsTrue(this.EmailDriver.CanAccessEmailAccount(), "Could not access account");
 
             this.Log.LogMessage("Dummy test");
         }
