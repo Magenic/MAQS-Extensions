@@ -44,7 +44,7 @@ namespace Models.Mobile
         /// Initializes a new instance of the <see cref="AndroidLoginPageModel" /> class.
         /// </summary>
         /// <param name="testObject">The appium test object</param>
-        public AndroidLoginPageModel(AppiumTestObject testObject): base(testObject)
+        public AndroidLoginPageModel(IAppiumTestObject testObject): base(testObject)
         {
         }
 

@@ -53,11 +53,11 @@ namespace $safeprojectname$.Steps
         private ALoginPageModel GetLoginPage()
         {
             Type driverType = this.TestObject.AppiumDriver.GetType();
-            if (driverType.Name == typeof(IOSDriver<AppiumWebElement>).Name)
+            if (driverType.Name == typeof(IOSDriver).Name)
             {
                 return new IOSLoginPageModel(this.TestObject);
             }
-            else if (driverType.Name == typeof(AndroidDriver<AppiumWebElement>).Name)
+            else if (driverType.Name == typeof(AndroidDriver).Name)
             {
                 return new AndroidLoginPageModel(this.TestObject);
             }

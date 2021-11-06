@@ -38,7 +38,7 @@ namespace $rootnamespace$
         /// Initializes a new instance of the <see cref="$safeitemname$" /> class.
         /// </summary>
         /// <param name="testObject">The Appium test object</param>
-        public $safeitemname$(AppiumTestObject testObject)
+        public $safeitemname$(IAppiumTestObject testObject)
             : base(testObject)
         {
         }
