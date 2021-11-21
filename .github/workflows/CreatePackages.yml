@@ -111,6 +111,14 @@ jobs:
 
     - uses: actions/upload-artifact@v2
       if: always()
+      name: "Upload build"
+      with:
+        name: build
+        path: |
+          Extensions/*.*
+
+    - uses: actions/upload-artifact@v2
+      if: always()
       name: "Upload artifacts"
       with:
         name: vsix
