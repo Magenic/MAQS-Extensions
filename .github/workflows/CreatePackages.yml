@@ -115,7 +115,7 @@ jobs:
       with:
         name: build
         path: |
-          Extensions/*.*
+          Extensions/**/*
 
     - uses: actions/upload-artifact@v2
       if: always()
