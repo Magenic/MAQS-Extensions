@@ -54,7 +54,7 @@ jobs:
 
   build:
     name: Build templates
-    runs-on: windows-latest 
+    runs-on: windows-2022 
     needs: getVersion
     env:
       Solution_Name: Extensions\OpenSourceExtension.sln
@@ -89,7 +89,9 @@ jobs:
 
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
+      uses: microsoft/setup-msbuild@v1.1    
+      with:
+        msbuild-architecture: x64
 
     - name: SetVersion
       id: setVer

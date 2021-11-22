@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="7f8a17ec-cc72-413f-ae85-bbbbb77f2d1f" Version="7.0.1" Language="en-US" Publisher="Magenic" />
-        <DisplayName>MAQS Framework</DisplayName>
-        <Description xml:space="preserve">MAQS automation quick start framework</Description>
+        <Identity Id="7f8a17ec-cc72-413f-ae85-bbbbb77f2d1f" Version="7.0.1.3" Language="en-US" Publisher="Softvision" />
+        <DisplayName>MAQS</DisplayName>
+        <Description xml:space="preserve">MAQS (MAQS automation quick start) framework</Description>
         <MoreInfo>https://www.cognizantsoftvision.com/communities/qa-community/</MoreInfo>
         <License>License.txt</License>
         <GettingStartedGuide>https://magenic.github.io/MAQS/#/MAQS_7/Introduction</GettingStartedGuide>
@@ -13,9 +13,13 @@
         <Tags>Test;Testing;Automation;Selenium;Appium;Database;Web Service;Email;MAQS;NUnit;MSTest;TestFramework</Tags>
     </Metadata>
     <Installation>
-        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[15.0,]" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
+            <ProductArchitecture>amd64</ProductArchitecture>
+        </InstallationTarget>
+        <InstallationTarget Version="[15.0,]" Id="Microsoft.VisualStudio.Community" />
     </Installation>
     <Dependencies>
+        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
     </Dependencies>
     <Assets>
         <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\Magenic Test\QATVisualStudioSeleniumTest.zip" />
@@ -66,9 +70,6 @@
         <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\Magenic SpecFlow Test\NUnit\QATNUnitSpecFlowSeleniumTemplate.zip" />
     </Assets>
     <Prerequisites>
-        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,17.0)" DisplayName="Visual Studio core editor" />
-        <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[15.0.26208.0,17.0)" DisplayName="C# and Visual Basic" />
-        <Prerequisite Id="Microsoft.VisualStudio.Component.ManagedDesktop.Prerequisites" Version="[15.0.26208.0,17.0)" DisplayName=".NET desktop development tools" />
-        <Prerequisite Id="Microsoft.Net.Component.4.7.1.SDK" Version="[15.6.27406.0,17.0)" DisplayName=".NET Framework 4.7.1 SDK" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,18.0)" DisplayName="Visual Studio core editor" />
     </Prerequisites>
 </PackageManifest>
