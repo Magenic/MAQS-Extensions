@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
     <PackageReference Include="Magenic.Maqs.Email" Version="7.0.6" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.7" />
   </ItemGroup>
   <ItemGroup>
